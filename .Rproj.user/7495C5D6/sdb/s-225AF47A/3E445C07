@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "trim <- function (x){\n  #trim unnecessary blank space\n  gsub(\"^\\\\s+|\\\\s+$\", \"\", x)\n}\n\ngetKEGGRelationCode <- function(relType){\n  #kegg relation name to its numeric code\n  as.numeric(kegg.relationship.db[kegg.relationship.db$name==relType,\"code\"])\n}\n\nconvertGeneID <- function(query,from,to){\n  if(from==\"ensembl\"){\n    return(unique(gene.db[gene.db$ensembl==query,to]))\n  }\n  if(from==\"symbol\"){\n    return(unique(gene.db[gene.db$symbol==query,to]))\n  }\n  if(from==\"entrez\"){\n    return(unique(gene.db[gene.db$entrez==query,to]))\n  }\n}\n\ngetTarget <- function(gene,matrix){\n  #get gene target for the queried gene \n  output <- c()\n  for (i in 1:ncol(matrix)){\n    if (matrix[gene,i]>0){\n      output <- c(output,colnames(matrix)[i])\n    }\n  }\n  output\n}\n\ngetTargetSimple <- function(gene,matrix){\n  output <- sapply(getTarget(convertGeneID(gene,\"symbol\",\"entrez\"),matrix),function(x){\n    convertGeneID(x,\"entrez\",\"symbol\")\n  },simplify=TRUE)\n  output\n}\n\ngetTF <- function(gene,matrix){\n  #get gene TF for the queried gene\n  output <- c()\n  for (i in 1:nrow(matrix)){\n    if (matrix[i,gene]>0){\n      output <- c(output,rownames(matrix)[i])\n    }\n  }\n  output\n}\n\ngetTFSimple <- function(gene,matrix){\n  output <- sapply(getTF(convertGeneID(gene,\"symbol\",\"entrez\"),matrix),function(x){\n    convertGeneID(x,\"entrez\",\"symbol\")\n  },simplify=TRUE)\n  output\n}",
+    "created" : 1466051807615.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1035910544",
+    "id" : "3E445C07",
+    "lastKnownWriteTime" : 1466052104,
+    "last_content_update" : 1466052104553,
+    "path" : "E://KEGGGraphLoader/utilityFunction.R",
+    "project_path" : "utilityFunction.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

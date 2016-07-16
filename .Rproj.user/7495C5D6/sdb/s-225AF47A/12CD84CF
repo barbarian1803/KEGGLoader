@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1468648149427.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "12CD84CF",
+    "lastKnownWriteTime" : 27303364806049904,
+    "last_content_update" : 1468648149427,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "priqegxqxv",
+        "caption" : "tesDFS",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=tesDFS&cache_key=priqegxqxv",
+        "displayedObservations" : "612",
+        "environment" : "",
+        "object" : "tesDFS",
+        "totalObservations" : "612",
+        "variables" : "2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

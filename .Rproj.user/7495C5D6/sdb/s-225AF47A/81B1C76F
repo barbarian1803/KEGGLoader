@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "wnt <- getPathwayRelationshipTable(\"hsa04310\")\najd.mat.wnt <- createAdjacencyMatrix(wnt,FALSE)\najd.mat.wnt2 <- createAdjacencyMatrix(wnt,TRUE)\n\n\ntes <- sapply(getTarget(convertGeneID(\"PORCN\",\"symbol\",\"entrez\"),ajd.mat.wnt),function(x){\n  convertGeneID(x,\"entrez\",\"symbol\")\n},simplify=TRUE)\n\n\nresList <- separateAdjMatrix(ajd.mat.wnt2)\nfor(x in names(resList)){\n  print(paste(x,\":\",nrow(resList[[x]])))\n}\nxxx <- union(resList[[\"4609.36\"]],resList[[\"3725.35\"]])\nxxx <- union(xxx,resList[[\"8061.34\"]])\n",
+    "created" : 1466047969835.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "211659029",
+    "id" : "81B1C76F",
+    "lastKnownWriteTime" : 1468651747,
+    "last_content_update" : 1468651747199,
+    "path" : "E://KEGGGraphLoader/KEGGLoaderTest.R",
+    "project_path" : "KEGGLoaderTest.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

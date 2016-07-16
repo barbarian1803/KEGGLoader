@@ -1,0 +1,9 @@
+{
+    "path" : "E://KEGGGraphLoader",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

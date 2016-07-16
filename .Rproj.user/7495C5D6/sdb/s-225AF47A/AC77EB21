@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1468650148430.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AC77EB21",
+    "lastKnownWriteTime" : 7813590796663464571,
+    "last_content_update" : 1468650148430,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "3zl8a40neq",
+        "caption" : "canonWNT",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=canonWNT&cache_key=3zl8a40neq",
+        "displayedObservations" : "608",
+        "environment" : "",
+        "object" : "canonWNT",
+        "totalObservations" : "608",
+        "variables" : "2"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

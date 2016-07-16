@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1468644156297.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DC0A5AC6",
+    "lastKnownWriteTime" : 5292976843906638626,
+    "last_content_update" : 1468644156297,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "efmwpr5u2c",
+        "caption" : "ajd.mat.wnt2",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=ajd.mat.wnt2&cache_key=efmwpr5u2c",
+        "displayedObservations" : 163,
+        "environment" : "",
+        "object" : "ajd.mat.wnt2",
+        "totalObservations" : 163,
+        "variables" : 163
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
