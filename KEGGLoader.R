@@ -146,6 +146,32 @@ createAdjacencyMatrix <- function(relationshipTable,distinct=TRUE){
   adjMat
 }
 
+tableToAdjmatrix <- function(table){
+  element <- union(table$Target,table$TF)
+  adjMat <- matrix(0, nrow = length(element), ncol = length(element))
+  colnames(adjMat) <- element
+  rownames(adjMat) <- element
+  
+  for (i in 1:nrow(table)){
+    adjMat[table[i,"TF"],table[i,"Target"]] <- table[i,"relType"]
+  }
+  
+  adjMat
+}
+
+setGeneSymbolAdjMatrix <- function(list){
+  for (i in 1:length(list)){
+    for(x in 1:(length(colnames(list[[i]])))){
+      colnames(list[[i]])[x] <- convertGeneID(unlist(strsplit(colnames(list[[i]])[x],"[.]"))[1],"entrez","symbol")
+    }
+    
+    for(x in 1:(length(rownames(list[[i]])))){
+      rownames(list[[i]])[x] <- convertGeneID(unlist(strsplit(rownames(list[[i]])[x],"[.]"))[1],"entrez","symbol")
+    }
+  }
+  return(list)
+}
+
 separateAdjMatrix <- function(matrix){
   #for adj matrix which contains more than one pathway,
   #separate it so that the adj matrix consist only 1 pathway
@@ -156,8 +182,10 @@ separateAdjMatrix <- function(matrix){
     if(!is.null(TFs)){
       for(tf in TFs){
         if(nrow(tesDFS[tesDFS$TF==tf & tesDFS$Target==gene,])==0){
-          tesDFS <<- rbind(tesDFS,data.frame("TF"=tf,"Target"=gene,stringsAsFactors = FALSE))
+          tesDFS <<- rbind(tesDFS,data.frame("TF"=tf,"Target"=gene,"relType"=matrix[tf,gene],stringsAsFactors = FALSE))
         }
+      }
+      for(tf in TFs){
         if(!tf%in%evaluated){
           dfs(tf,matrix)
         }
@@ -173,7 +201,36 @@ separateAdjMatrix <- function(matrix){
     dfs(gene,matrix)
     resList[[gene]]<-tesDFS
   }
-  resList
+  
+  resListBak <- resList
+  mergedRes <- list()
+  cur <- 1
+  while(length(resListBak)>0){
+    mergedRes[[cur]] <- resListBak[[1]]
+    resListBak <- resListBak[-1]
+    if(length(resListBak)==0){
+      break
+    }
+    merged <- c()
+    for(i in 1:length(resListBak)){
+      temp <- union(mergedRes[[cur]],resListBak[[i]])
+      if(nrow(temp)<nrow(mergedRes[[cur]])+nrow(resListBak[[i]])){
+        mergedRes[[cur]] <- temp
+        merged <- c(merged,i)
+      }
+    }
+    
+    if(!is.null(merged)){
+      resListBak <- resListBak[-c(merged)]
+    }
+    
+    cur <- cur+1
+  }
+  
+  for(i in 1:length(mergedRes)){
+    mergedRes[[i]]<-tableToAdjmatrix(mergedRes[[i]])
+  }
+  return(setGeneSymbolAdjMatrix(mergedRes))
 }
 
 getPathwayRelationshipTable<-function(hsa_code){
