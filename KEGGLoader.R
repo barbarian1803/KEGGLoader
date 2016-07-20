@@ -252,3 +252,7 @@ getEndNode <- function(matrix){
   }
   output
 }
+
+getTFType <- function(tf,target,matrix){
+  matrix[tf,target]
+}
