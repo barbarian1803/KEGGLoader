@@ -1,7 +1,5 @@
-#check transcription factor
-logFCData <- FC_BDC_Normal
-
 ProcessTF <- function(Target,graph){
+  message(paste("Processing gene ",Target))
   allTF <- getTF(Target,graph)
   inhibitor <- c()
   activator <- c()
@@ -10,6 +8,9 @@ ProcessTF <- function(Target,graph){
   for(tf in allTF){
     tf.id <- convertGeneID(tf,"symbol","ensembl")
     if(identical(tf.id,character(0))){
+      next
+    }
+    if(tf.id==tf){
       next
     }
     if(abs(logFCData[tf.id,"log2FoldChange"])<0.65){
@@ -56,22 +57,26 @@ checkInhibitor <- function(inhibitor,target){
 }
 
 checkActivator <- function(activator,target){
+  Target <- convertGeneID(target,"symbol","ensembl")
+  
   oriactivator <- activator
   activator <- filterActivator(activator,target)
-  Target <- convertGeneID(target,"symbol","ensembl")
-  res <- list()
   
   if(length(activator)<1){
+    res <- list()
     res[[1]]<-c()
     res[[2]]<-oriactivator
+    res[[3]]<-NULL
     return(res)
   }
-  
-  activator <- convertGeneID(activator,"symbol","ensembl")
+  activatorEnsembl <- c()
+  for (a in activator){
+    activatorEnsembl <- c(activatorEnsembl,convertGeneID(a,"symbol","ensembl"))
+  }
+  activator <- activatorEnsembl
   max <- -1
   selected <- c()
   LMSummary <- NULL
-  
   for(i in length(activator):1){
     list <- enum.choose(activator,i)
     for(j in 1:length(list)){
@@ -87,9 +92,13 @@ checkActivator <- function(activator,target){
       }
     }
   }
-  
-  res[[1]]<-convertGeneID(selected,"ensembl","symbol")
-  res[[2]]<-setdiff(oriactivator,res[[1]])
+  selectedSymbol <- c()
+  for(n in selected){
+    selectedSymbol <- c(selectedSymbol,convertGeneID(n,"ensembl","symbol"))
+  }
+  res <- list()
+  res[[1]] <- selectedSymbol
+  res[[2]]<-setdiff(oriactivator,selectedSymbol)
   res[[3]]<-LMSummary
   res
 }

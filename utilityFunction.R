@@ -10,12 +10,27 @@ getKEGGRelationCode <- function(relType){
 
 convertGeneID <- function(query,from,to){
   if(from=="ensembl"){
+    check <- unique(gene.db[gene.db$ensembl==query,])
+    if (nrow(check)==0){
+      message(paste("Gene ",query," can not be found in the database, convertion can not be done"))
+      return(query)
+    }
     return(unique(gene.db[gene.db$ensembl==query,to]))
   }
   if(from=="symbol"){
+    check <- unique(gene.db[gene.db$symbol==query,])
+    if (nrow(check)==0){
+      message(paste("Gene ",query," can not be found in the database, convertion can not be done"))
+      return(query)
+    }
     return(unique(gene.db[gene.db$symbol==query,to]))
   }
   if(from=="entrez"){
+    check <- unique(gene.db[gene.db$entrez==query,])
+    if (nrow(check)==0){
+      message(paste("Gene ",query," can not be found in the database, convertion can not be done"))
+      return(query)
+    }
     return(unique(gene.db[gene.db$entrez==query,to]))
   }
 }

@@ -5,11 +5,6 @@ ajd.mat.wnt <- createAdjacencyMatrix(wnt,FALSE)
 ajd.mat.wnt2 <- createAdjacencyMatrix(wnt,TRUE)
 
 
-tes <- sapply(getTarget(convertGeneID("PORCN","symbol","entrez"),ajd.mat.wnt),function(x){
-  convertGeneID(x,"entrez","symbol")
-},simplify=TRUE)
-
-
 resList <- separateAdjMatrix(ajd.mat.wnt2)
 
 
@@ -42,4 +37,6 @@ for(x in 1:(length(rownames(resList[[3]])))){
 
 tes <- setGeneSymbolAdjMatrix(resList)
 
-View(resList[[5]])
+View(resList[[3]])
+CanonWNT <- resList[[3]]
+View(CanonWNT)

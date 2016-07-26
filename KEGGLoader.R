@@ -172,6 +172,20 @@ setGeneSymbolAdjMatrix <- function(list){
   return(list)
 }
 
+setAdjMatrixColRowNames <- function(list){
+  for (i in 1:length(list)){
+    for(x in 1:(length(colnames(list[[i]])))){
+      colnames(list[[i]])[x] <- unlist(strsplit(colnames(list[[i]])[x],"[.]"))[1]
+    }
+    
+    for(x in 1:(length(rownames(list[[i]])))){
+      rownames(list[[i]])[x] <- unlist(strsplit(colnames(list[[i]])[x],"[.]"))[1]
+    }
+  }
+  return(list)
+}
+
+
 separateAdjMatrix <- function(matrix){
   #for adj matrix which contains more than one pathway,
   #separate it so that the adj matrix consist only 1 pathway
@@ -230,7 +244,7 @@ separateAdjMatrix <- function(matrix){
   for(i in 1:length(mergedRes)){
     mergedRes[[i]]<-tableToAdjmatrix(mergedRes[[i]])
   }
-  return(setGeneSymbolAdjMatrix(mergedRes))
+  return(setAdjMatrixColRowNames(mergedRes))
 }
 
 getPathwayRelationshipTable<-function(hsa_code){
